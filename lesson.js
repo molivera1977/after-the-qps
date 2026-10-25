@@ -803,6 +803,7 @@ window.ATQLesson = (function () {
       over: false
     };
     const mine = run;
+    renderPath();                                        // never the chips of the lesson before
     if (window.ATQApp) ATQApp.show('lessonView');
     $('lessonName').textContent = `${lesson.name} · ${lesson.story.title}`;
     $('previewBar').hidden = !(run.preview && ATQLogin.who().kind === 'teacher');   // a guest has share.js's own strip

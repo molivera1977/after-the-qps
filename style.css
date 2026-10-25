@@ -58,6 +58,7 @@ button { font-family: inherit; }
 .l-btn.l-no { background: #fff; color: var(--ink); border: 2px solid var(--line-strong); box-shadow: 0 5px 0 var(--line-strong); }
 .l-btn.l-hear, .l-btn.l-listen, .l-btn.l-hear-all { background: var(--orange); box-shadow: 0 5px 0 var(--orange-dark); }
 .l-btn.lit, .l-btn.l-hear.lit { background: var(--orange-dark); }
+.l-btn.l-hear:disabled, .l-btn.l-listen:disabled, .l-btn.l-hear-all:disabled { background: #9aa3b2; box-shadow: 0 5px 0 #7c8494; }   /* a disabled orange button looks grey, like the others */
 .l-btn.l-waiting { position: relative; overflow: hidden; }
 .l-btn.l-waiting::after { content: ''; position: absolute; left: 0; bottom: 0; height: 6px; width: 0; background: var(--gold); }
 .l-btn.l-waiting.go::after { width: 100%; transition: width var(--wait, 5s) linear; }
