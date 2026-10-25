@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 480" role="img" aria-label="Pine Lake with a big wave, a wet cake on a plate, and ten sand cakes. The best sand cake has a flag that says Lake Cake.">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe3ff"/><stop offset="1" stop-color="#eaf6ff"/></linearGradient>
+    <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b8fd9"/><stop offset="1" stop-color="#5fb0ee"/></linearGradient>
+    <linearGradient id="sand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6dfa8"/><stop offset="1" stop-color="#ecc77e"/></linearGradient>
+  </defs>
+  <rect width="840" height="480" fill="url(#sky)"/>
+  <!-- sun -->
+  <circle cx="730" cy="80" r="44" fill="#ffd44d"/>
+  <g stroke="#ffd44d" stroke-width="6" stroke-linecap="round">
+    <line x1="730" y1="14" x2="730" y2="0"/><line x1="796" y1="80" x2="812" y2="80"/><line x1="664" y1="80" x2="648" y2="80"/>
+    <line x1="777" y1="33" x2="788" y2="22"/><line x1="683" y1="33" x2="672" y2="22"/><line x1="777" y1="127" x2="788" y2="138"/>
+  </g>
+  <!-- pine trees across the lake -->
+  <g fill="#2f7d4f">
+    <polygon points="40,190 70,110 100,190"/><polygon points="90,190 125,95 160,190"/><polygon points="150,190 180,120 210,190"/>
+    <polygon points="560,190 590,115 620,190"/><polygon points="610,190 640,100 670,190"/>
+  </g>
+  <!-- the lake -->
+  <path d="M0 185 H840 V300 C700 285 560 315 420 300 C280 285 140 315 0 300 Z" fill="url(#lake)"/>
+  <path d="M60 230 q20 -10 40 0 M250 250 q20 -10 40 0 M520 235 q20 -10 40 0 M690 255 q20 -10 40 0" stroke="#d6efff" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- the big wave, curling onto the sand -->
+  <path d="M250 300 C270 230 330 200 380 215 C420 228 430 262 405 276 C390 284 372 276 376 262 C340 262 320 285 315 310 Z" fill="#2a78c4"/>
+  <path d="M380 215 C420 228 430 262 405 276 C390 284 372 276 376 262" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="420" cy="232" r="6" fill="#ffffff"/><circle cx="436" cy="250" r="5" fill="#ffffff"/><circle cx="430" cy="214" r="4" fill="#ffffff"/>
+  <!-- the sand -->
+  <path d="M0 300 C140 315 280 285 420 300 C560 315 700 285 840 300 V480 H0 Z" fill="url(#sand)"/>
+  <!-- splash drops on the cake -->
+  <g fill="#5fb0ee"><circle cx="455" cy="300" r="5"/><circle cx="470" cy="290" r="4"/><circle cx="442" cy="312" r="3"/></g>
+  <!-- the plate and Kate's wet cake -->
+  <ellipse cx="500" cy="392" rx="92" ry="20" fill="#ffffff" stroke="#d9d0c2" stroke-width="3"/>
+  <rect x="440" y="320" width="120" height="66" rx="10" fill="#f5b0c8"/>
+  <path d="M440 336 q15 14 30 0 q15 14 30 0 q15 14 30 0 q15 14 30 0" fill="#fff2f7" stroke="#fff2f7" stroke-width="6"/>
+  <rect x="440" y="320" width="120" height="16" rx="8" fill="#fff2f7"/>
+  <g fill="#5fb0ee"><path d="M462 344 q4 8 0 12 q-4 -4 0 -12z"/><path d="M512 350 q4 8 0 12 q-4 -4 0 -12z"/><path d="M540 340 q4 8 0 12 q-4 -4 0 -12z"/></g>
+  <!-- ten sand cakes -->
+  <g fill="#e2b866" stroke="#c99a45" stroke-width="3">
+    <path d="M610 420 h56 v-26 q-28 -18 -56 0 z"/><path d="M676 420 h56 v-26 q-28 -18 -56 0 z"/><path d="M742 420 h56 v-26 q-28 -18 -56 0 z"/>
+    <path d="M640 458 h56 v-26 q-28 -18 -56 0 z"/><path d="M706 458 h56 v-26 q-28 -18 -56 0 z"/><path d="M772 458 h56 v-26 q-28 -18 -56 0 z"/>
+    <path d="M40 440 h56 v-26 q-28 -18 -56 0 z"/><path d="M106 440 h56 v-26 q-28 -18 -56 0 z"/><path d="M172 440 h56 v-26 q-28 -18 -56 0 z"/>
+    <path d="M232 400 h72 v-34 q-36 -24 -72 0 z"/>
+  </g>
+  <!-- the flag on the best sand cake -->
+  <line x1="268" y1="358" x2="268" y2="282" stroke="#7a5230" stroke-width="5" stroke-linecap="round"/>
+  <path d="M270 284 h128 v40 h-128 z" fill="#e03131"/>
+  <text x="334" y="310" font-family="Andika, Lexend, sans-serif" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle" textLength="112" lengthAdjust="spacingAndGlyphs">Lake Cake</text>
+</svg>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>After the QPS</title>
+<meta name="description" content="Mr. O's phonics practice for students who passed a QPS level: tricky words, the sound, blending, a story read 3 times, questions and a spelled sentence.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔤</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+<!-- share.js first: on Mr. O's share link (?share=mro) nothing reaches the sheet -->
+<script src="share.js?v=3"></script>
+</head>
+<body>
+<header id="topBar" class="top" hidden>
+  <span class="top-brand">🔤 After the QPS</span>
+  <span class="top-who">👋 Hi, <strong id="whoName"></strong>!</span>
+  <span id="guestNote" class="top-guest" hidden>Guest view · nothing is saved or sent</span>
+  <button id="signOutBtn" class="top-out" type="button">Not you? Sign out</button>
+</header>
+
+<main class="wrap">
+  <!-- SIGN IN — the same as Mr. O's other sites -->
+  <section id="loginView" hidden>
+    <div class="login-hero">
+      <h1>🔤 After the QPS</h1>
+      <div class="p-direction center"><button class="p-say l-say" type="button" aria-label="Listen">🔊</button><p>Practice the sounds you learned on the QPS. Pick your name. Then type your student number.</p></div>
+    </div>
+    <div class="login-box">
+      <label for="atqName">Your name</label>
+      <select id="atqName"><option value="">Pick your name</option></select>
+      <div id="atqPinBox" hidden>
+        <div id="atqGuestBox" hidden>
+          <label for="atqGuestName">Your first name</label>
+          <input id="atqGuestName" type="text" autocomplete="off">
+        </div>
+        <label for="atqPin" id="atqPinLabel">Your student number</label>
+        <input id="atqPin" type="password" inputmode="numeric" autocomplete="off">
+      </div>
+      <button id="atqSignIn" class="l-btn" type="button">Sign in ▶</button>
+      <p id="atqLoginError" class="login-error" role="alert"></p>
+      <button id="atqTeacher" class="teacher-access-btn" type="button">Teacher Access</button>
+    </div>
+  </section>
+
+  <!-- HOME — the lesson from Mr. O, or My Lessons -->
+  <section id="homeView" hidden><div id="homeBox"></div></section>
+
+  <!-- A LESSON -->
+  <section id="lessonView" hidden>
+    <div id="previewBar" class="preview-bar" hidden>
+      <span>🔍 Teacher Preview — nothing is saved or sent</span>
+      <button id="previewSkip" type="button">⏭ Next step</button>
+      <button id="previewExit" type="button">✕ Exit preview</button>
+    </div>
+    <div class="lesson-top">
+      <button id="lessonBack" class="lesson-back" type="button">⬅ Back to My Lessons</button>
+      <span id="lessonName" class="lesson-name"></span>
+    </div>
+    <nav id="lessonPath" class="l-path" aria-label="The steps of this lesson"></nav>
+    <div id="lessonArea" class="l-area" aria-live="polite"></div>
+  </section>
+</main>
+
+<script src="readaloud.js?v=1"></script>
+<script src="blend-core.js?v=1"></script>
+<script src="sound.js?v=1"></script>
+<script src="lessons.js?v=1"></script>
+<script src="login.js?v=1"></script>
+<script src="assign.js?v=1"></script>
+<script src="lesson.js?v=1"></script>
+<script src="app.js?v=1"></script>
+</body>
+</html>
