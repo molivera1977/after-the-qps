@@ -8,7 +8,8 @@
    Rate 0.82 for sentences, directions, lessons and passages (Marcos
    10/15: "the read aloud part for the directions seems very fast") — the
    pace he approved for the science lessons. Single words read on their
-   own (speakComputer) stay at 1.0, his choice for this site.
+   own (speakComputer) went to 0.82 too on 10/26: "0.82 sounds way better
+   and not rushed".
    ===================================================================== */
 window.QPSRead = (function () {
   const RATE = 0.82;

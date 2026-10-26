@@ -4,7 +4,7 @@
      • a single sound (/a/, /oo/) is Mr. O's own recording (sounds/),
        brought to the computer voice's loudness (blend-core.js) — Marcos
        10/15: "the computer cant do vowel sounds";
-     • a whole word is the computer voice at rate 1.0, as written (the hub's
+     • a whole word is the computer voice at rate 0.82, as written (the hub's
        rule for real words), in English (readaloud.js english());
      • letter names ("S", "A") are the computer voice too.
    A tap plays at once: whatever is still playing stops first (the hub,
@@ -71,7 +71,7 @@ window.ATQSound = (function () {
   }
 
   // Chrome sometimes never reports that a reading ended: never wait forever (the hub's speakComputer)
-  function speak(text, rate = 1.0) {
+  function speak(text, rate = 0.82) {
     return new Promise(resolve => {
       if (!window.speechSynthesis || typeof SpeechSynthesisUtterance === 'undefined') { resolve(); return; }
       const u = new SpeechSynthesisUtterance(text);
@@ -96,8 +96,8 @@ window.ATQSound = (function () {
   // Each public call stops what is playing, then plays. Resolves when its sound is over (or cut off).
   async function guarded(fn) { stop(); audio(); const mine = ++run; await fn(); return mine === run; }
   const sound = (name) => guarded(async () => { const b = await load(name); if (b) await play(b); });
-  const word = (w) => guarded(() => speak(w, 1.0));
-  const letters = (s) => guarded(() => speak(s.toUpperCase().split('').join('-'), 1.0));   // capitals: the voice says letter names
+  const word = (w) => guarded(() => speak(w, 0.82));
+  const letters = (s) => guarded(() => speak(s.toUpperCase().split('').join('-'), 0.82));   // capitals: the voice says letter names
   const text = (t) => guarded(() => speak(t, 0.82));
 
   // Leaving the page or the tab ends every sound (Marcos 10/23: "if I leave I still hear the read aloud")
