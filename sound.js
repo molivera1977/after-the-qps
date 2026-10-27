@@ -116,7 +116,10 @@ window.ATQSound = (function () {
     const rec = recorded(w) ? await load('words/' + String(w).toLowerCase(), true) : null;
     if (rec) await play(rec); else await speak((window.ATQ_WORD_SAY || {})[String(w).toLowerCase()] || w, 0.82);
   });
-  const letters = (s) => guarded(() => speak(s.toUpperCase().split('').join('-'), 0.82));   // capitals: the voice says letter names
+  // Letter names, said lowercase (Marcos 10/27: "why does this say capital w, capital a, capital s"). Measured with
+  // Samantha: a lone capital "W" is the same audio as "capital W"; a lone "w", "s", "d"… is the letter's name
+  // (22 of 26 letters byte-identical to the spelled-out name), and "s-h" is the same audio as "S-H".
+  const letters = (s) => guarded(() => speak(String(s).toLowerCase().split('').join('-'), 0.82));
   const text = (t) => guarded(() => speak(t, 0.82));
 
   // Leaving the page or the tab ends every sound (Marcos 10/23: "if I leave I still hear the read aloud")
