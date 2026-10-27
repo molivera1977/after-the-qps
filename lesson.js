@@ -552,8 +552,9 @@ window.ATQLesson = (function () {
     }
     // the picture, after read 3 (Marcos 10/25: words only on the story pages)
     await ask(resolve => {
-      const area = screen(`🎉 You read ${title} 3 times!`);
-      const dir = direction(area, `You read ${title} 3 times! Here is a picture of the story.`);
+      const area = screen(`🎉 You finished reading ${title} 3 times!`);
+      // not "You read": past-tense read is spelled like "reed" and the voice says reed (Marcos 10/26: "it says reed when it should say red")
+      const dir = direction(area, `You finished reading ${title} 3 times! Here is a picture of the story.`);
       const work = el('div', 'l-work');
       area.append(work);
       const img = el('img', 'l-picture');
@@ -852,8 +853,8 @@ window.ATQLesson = (function () {
     if (!run.preview) ATQLogin.send(resultRow(true));
     if (run.saveKey) { try { localStorage.removeItem(run.saveKey); } catch (e) {} }
     const result = { right, total: L.questions.length, data: d };
-    const area = screen(run.kind === 'reread' ? `🎉 You read ${L.story.title} again!` : `🎉 You finished ${L.name}!`);
-    const dir = direction(area, `${run.kind === 'reread' ? `You read ${L.story.title} 3 more times.` : `You finished the lesson ${/\b[a-z]$/i.test(L.name) ? `${L.name}, like ${L.example}` : L.name}.`} You got ${right} of ${L.questions.length} questions right.`);
+    const area = screen(run.kind === 'reread' ? `🎉 You finished reading ${L.story.title} again!` : `🎉 You finished ${L.name}!`);
+    const dir = direction(area, `${run.kind === 'reread' ? `You finished reading ${L.story.title} 3 more times.` : `You finished the lesson ${/\b[a-z]$/i.test(L.name) ? `${L.name}, like ${L.example}` : L.name}.`} You got ${right} of ${L.questions.length} questions right.`);
     dir.row.classList.add('l-end');
     const work = el('div', 'l-work');
     area.append(work);
