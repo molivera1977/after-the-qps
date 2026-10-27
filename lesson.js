@@ -136,18 +136,20 @@ window.ATQLesson = (function () {
     host.append(row);
     return { row, btn, p, text };
   }
-  function mustHear(dir, work, onOpen) {
+  // auto: read aloud right away (a direction inside a step, see sayFirst); the "tap 🔊" note shows only if that
+  // reading stops early. work: one element or a list, locked until the directions are heard to the end.
+  function mustHear(dir, work, onOpen, { auto = false } = {}) {
     let open = false, reading = false;
-    work.inert = true;
-    work.classList.add('l-locked');
+    const locked = [].concat(work);
+    locked.forEach(w => { w.inert = true; w.classList.add('l-locked'); });
     dir.row.classList.add('l-must-hear');
     const note = el('p', 'l-hear-note', '👆 Tap 🔊 to hear the directions first.');
+    note.hidden = auto;
     dir.row.after(note);
     const unlock = () => {
       if (open) return;
       open = true;
-      work.inert = false;
-      work.classList.remove('l-locked');
+      locked.forEach(w => { w.inert = false; w.classList.remove('l-locked'); });
       dir.row.classList.remove('l-must-hear');
       note.remove();
       dir.btn.onclick = () => { ++readRun; sayEl(dir.p); };
@@ -161,10 +163,20 @@ window.ATQLesson = (function () {
       reading = false;
       if (open) return;
       if (how === 'end') return unlock();
+      note.hidden = false;
       if (how === 'novoice') return readItYourself(note, dir.text, unlock);
       note.textContent = '👆 The reading stopped early. Tap 🔊 to hear the directions to the end.';
     };
+    if (auto) dir.btn.onclick();
     return { unlock };
+  }
+  /* A direction that comes up inside a step (Marcos 10/27: "this direction should be read aloud like we talked
+     about yesterday" · "this needs to be the standard" — the QPS hub's rule of 10/26): its own 🔊 on the left,
+     read aloud right away, and what it is about stays locked until it is heard to the end. */
+  function sayFirst(host, text, work, onOpen) {
+    const dir = direction(host, text);
+    mustHear(dir, work, onOpen, { auto: true });
+    return dir;
   }
   function readItYourself(note, text, unlock) {
     note.textContent = '📖 Read the directions. Then tap I read it.';
@@ -222,9 +234,13 @@ window.ATQLesson = (function () {
         const count = el('p', 'l-count', it.again ? `🔁 One more time` : `${kind} ${it.i + 1} of ${items.length}`);
         const card = el('div', 'l-card');
         let ready = null;
-        // a blend word: the check opens only after the last part is tapped, then the think time
-        const shown = it.show(card, () => { hear.textContent = '⏳ Think…'; setTimeout(() => ready && ready(), THINK_MS); });
-        const hint = el('p', 'l-hint', before || 'Whisper the word. Then tap the 🔊 Check button.');
+        // a blend word: the check opens only after the last part is tapped, then the think time; a line to say
+        // then ("Now whisper the whole word.") is read aloud and holds the check until it is heard
+        const shown = it.show(card, (line) => {
+          hear.textContent = '⏳ Think…';
+          const think = () => setTimeout(() => ready && ready(), THINK_MS);   // HILL's think time, after the line is heard
+          if (line) { const d = direction(card, line); d.row.classList.add('l-whole'); mustHear(d, hear, think, { auto: true }); } else think();
+        });
         const hear = button('l-btn l-hear', it.gated ? '👆 Tap every part first' : '⏳ Think…', null, `Hear ${it.label}`);
         hear.disabled = true;
         const marks = el('div', 'l-marks');
@@ -232,7 +248,12 @@ window.ATQLesson = (function () {
         const yes = button('l-btn l-yes', '✓ I got it', () => resolve(true));
         const no = button('l-btn l-no', '✗ I missed it', () => resolve(false));
         marks.append(yes, no);
-        host.append(count, card, hint, hear, marks);
+        host.append(count, card);
+        // the item's direction is read aloud first; the check (and a blend word's parts) wait for it
+        const say = direction(host, before || 'Whisper the word. Then tap the 🔊 Check button.');
+        host.append(hear, marks);
+        // the think time starts once the direction is heard (a blend word waits for its last part to be tapped)
+        mustHear(say, it.gated ? [card, hear] : hear, () => { if (!it.gated) setTimeout(ready, THINK_MS); }, { auto: true });
         ready = () => {
           hear.disabled = false; hear.textContent = '🔊 Check';
           hear.onclick = async () => {
@@ -243,7 +264,6 @@ window.ATQLesson = (function () {
             onScreen(marks);
           };
         };
-        if (!it.gated) setTimeout(ready, THINK_MS);       // a blend word waits for its last part to be tapped
       });
       if (!marked && !it.again) {
         missed.push(it.label);
@@ -297,7 +317,7 @@ window.ATQLesson = (function () {
         // HILL: "Spell ___" (tap each letter), then "Word?"
         function spellIt() {
           spell.hidden = false;
-          spell.append(el('p', 'l-hint', `Spell ${t.word}. Tap each letter.`));
+          const say = direction(spell, `Spell ${t.word}. Tap each letter.`);
           const row = el('div', 'l-letters-row');
           const letters = t.word.split('').map((ch, j) => {
             const b = button('l-letter', ch, null, `Letter ${j + 1}`);
@@ -311,11 +331,11 @@ window.ATQLesson = (function () {
             return b;
           });
           spell.append(row);
-          letters[0].focus();
+          mustHear(say, row, () => letters[0].focus(), { auto: true });
           onScreen(row);
         }
         function readAgain() {
-          spell.append(el('p', 'l-hint', `Now whisper the word ${t.word}. Then tap the 🔊 Check button.`));
+          const say = direction(spell, `Now whisper the word ${t.word}. Then tap the 🔊 Check button.`);
           const hear = button('l-btn l-hear', '🔊 Check', async () => {
             hear.disabled = true;
             await lightWhile([hear, word], () => ATQSound.word(t.word));
@@ -324,6 +344,7 @@ window.ATQLesson = (function () {
           });
           let next = null;
           spell.append(hear);
+          mustHear(say, hear, null, { auto: true });
           onScreen(hear);
         }
         mustHear(dir, work);
@@ -467,10 +488,7 @@ window.ATQLesson = (function () {
         t.disabled = true;
         const nxt = order[k + 1];
         if (nxt) { nxt.disabled = false; nxt.classList.add('next'); nxt.focus(); }
-        else {
-          card.append(el('p', 'l-hint l-whole', 'Now whisper the whole word.'));
-          ready();
-        }
+        else ready('Now whisper the whole word.');
       };
     });
     setTimeout(() => order[0].focus(), 50);
@@ -682,30 +700,40 @@ window.ATQLesson = (function () {
         inp.addEventListener('paste', e => e.preventDefault());
         inp.addEventListener('drop', e => e.preventDefault());
         inp.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
-        const fix = el('p', 'l-fix');
+        const fix = el('div', 'l-fix');
         cell.append(inp, fix);
         boxes.append(cell);
         return { inp, fix, cell, want: w, firstTry: true, right: false };
       });
+      // corrections are read aloud too (the QPS rule of 10/26), one after another; the boxes wait until all are heard
+      const tellInOrder = (lines, then) => {
+        const [first, ...rest] = lines;
+        if (!first) return then();
+        first.host.innerHTML = '';
+        sayFirst(first.host, first.text, [boxes, checkBtn], () => tellInOrder(rest, then));
+      };
       const check = () => {
-        if (inputs.some(x => !x.right && !x.inp.value.trim())) { msg.textContent = 'Type a word in every box.'; return; }
-        msg.textContent = '';
+        msg.innerHTML = '';
+        if (inputs.some(x => !x.right && !x.inp.value.trim())) {
+          return tellInOrder([{ host: msg, text: 'Type a word in every box.' }], () => { const e = inputs.find(x => !x.right && !x.inp.value.trim()); if (e) e.inp.focus(); });
+        }
+        const fixes = [];
         inputs.forEach(x => {
           if (x.right) return;
           const typed = x.inp.value.trim();
           if (norm(typed) === norm(x.want)) {
-            x.right = true; x.inp.readOnly = true; x.cell.classList.remove('wrong'); x.cell.classList.add('right'); x.fix.textContent = '';
+            x.right = true; x.inp.readOnly = true; x.cell.classList.remove('wrong'); x.cell.classList.add('right'); x.fix.innerHTML = '';
           } else {
             if (x.firstTry) run.data.spell.push({ want: x.want.toLowerCase(), typed: norm(typed) });
             x.cell.classList.add('wrong');
-            x.fix.textContent = `✏️ The spelling is: ${x.want.toLowerCase()}. Type the word again.`;
+            fixes.push({ host: x.fix, text: `✏️ The spelling is: ${x.want.toLowerCase()}. Type the word again.` });
             x.inp.value = '';
           }
           x.firstTry = false;
         });
         save();
         const wrong = inputs.find(x => !x.right);
-        if (wrong) { wrong.inp.focus(); return; }
+        if (wrong) { tellInOrder(fixes, () => wrong.inp.focus()); return; }
         checkBtn.hidden = true;
         const line = wrapLine('✅ You spelled the sentence!');
         const row = el('div', 'l-direction'); row.append(button('l-say', '🔊', () => { ++readRun; sayEl(line); }, 'Hear this'), line);
@@ -713,7 +741,7 @@ window.ATQLesson = (function () {
         nextButton(work, 'Finish ▶', '', resolve);
       };
       const checkBtn = button('l-btn l-check', '✓ Check', check);
-      const msg = el('p', 'l-msg');
+      const msg = el('div', 'l-msg');
       const say = el('p', ''); say.dataset.say = sentence;
       if (window.QPSRead) QPSRead.wrap(say, sentence);
       say.hidden = true;                                 // the sentence is heard, not shown
