@@ -44,11 +44,24 @@ window.ATQSound = (function () {
           const data = window.BlendCore && !whole ? BlendCore.blend([mono(buf)], c.sampleRate) : null;
           if (data && data.length) { out = c.createBuffer(1, data.length, c.sampleRate); out.getChannelData(0).set(data); out.__name = name; }
           else out = buf;
+          if (whole) out.__whole = true;
         }
       } catch (e) { out = null; }
     }
     cache[name] = out;
     return out;
+  }
+  // How loud a recording plays. His single sounds: the site's level (-14 dBFS). His whole words: -12 dBFS — the
+  // computer voice measured -12.1 to -13.7 on his Mac (10/27), and at -14 his words were the quietest thing in the
+  // lesson (Marcos: "my recordings need to be louder"). Never past the limiter's range (MAX_OVER / peak).
+  const WORD_TARGET_DB = -12;
+  function gainFor(buf) {
+    const data = mono(buf);
+    const g = BlendCore.levelGain(data, buf.sampleRate);
+    if (!buf.__whole) return g;
+    let peak = 0;
+    for (let i = 0; i < data.length; i++) { const v = Math.abs(data[i]); if (v > peak) peak = v; }
+    return Math.min(g * Math.pow(10, (WORD_TARGET_DB - BlendCore.TARGET_DB) / 20), peak ? BlendCore.MAX_OVER / peak : g);
   }
   function play(buf) {
     return new Promise(resolve => {
@@ -58,7 +71,7 @@ window.ATQSound = (function () {
       let out = c.destination;
       if (window.BlendCore && c.createGain && c.createWaveShaper) {
         if (!limiter) { limiter = c.createWaveShaper(); limiter.curve = BlendCore.limitCurve(); limiter.connect(c.destination); }
-        if (!levelOf.has(buf)) levelOf.set(buf, BlendCore.levelGain(mono(buf), buf.sampleRate));
+        if (!levelOf.has(buf)) levelOf.set(buf, gainFor(buf));
         const gain = c.createGain();
         gain.gain.value = levelOf.get(buf) / BlendCore.MAX_OVER;
         gain.connect(limiter);
