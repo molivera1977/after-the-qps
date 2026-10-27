@@ -25,17 +25,19 @@ window.ATQ_LESSONS = [
     sayName: 'Silent e with the letter A',
     example: 'cake',
     goal: 'read and spell words where a quiet e makes the a say its name, like cake',
+    // Rewritten 10/26 (Marcos picked "New story, same plan"): Kate's Cake was too close to Moon Dog VCe
+    // Book 1, The Shape Game (sand, cakes on a plate, a big wave), which his class reads at his table.
     story: {
-      title: "Kate's Cake",
-      picture: 'pictures/kates-cake.svg',
-      pictureAlt: 'A lake with a big wave. On the sand: a plate with a wet cake, and ten sand cakes. A flag on the best sand cake says Lake Cake.',
+      title: 'Brave Gabe',
+      picture: 'pictures/brave-gabe.svg',
+      pictureAlt: 'A red cape stuck on a gate in front of a shed. A cat in a little red cape sits in the grass.',
       pages: [
-        'Kate made a cake. Jake and Kate came to Pine Lake.',
-        'Jake and Kate sat in the shade. Kate set the cake on a plate.',
-        'Splash! A big wave came up the sand and hit the cake.',
-        "Kate's cake got wet. Kate was sad.",
-        'Then Jake had a plan. "Let\'s make sand cakes!" said Jake.',
-        'Jake and Kate made ten sand cakes. Kate gave the best sand cake a name: Lake Cake!'
+        'Gabe made a red cape with tape. The cape made Gabe brave!',
+        "Jade's cat Pip was stuck up on the shed.",
+        '"Pip can not get off the shed!" said Jade.',
+        "Gabe came to save Pip. Gabe's cape got stuck on the gate!",
+        "Then Pip made a big jump. Pip sat in Jade's lap!",
+        'Gabe gave the red cape to Pip. Brave Pip!'
       ]
     },
     // HILL steps 1–2: the story's irregular words. odd = the part that does not say the sound you expect,
@@ -61,16 +63,16 @@ window.ATQ_LESSONS = [
       sounds: { a_e: 'ai', a: 'a' }
     },
     // HILL step 4: 8 words from the story, one sound per part (the a and the quiet e are linked)
-    blend: ['m|a|d|e', 'c|a|k|e', 'c|a|m|e', 'sh|a|d|e', 'p|l|a|t|e', 'w|a|v|e', 'g|a|v|e', 'n|a|m|e'],
+    blend: ['m|a|d|e', 'c|a|p|e', 't|a|p|e', 'b|r|a|v|e', 'c|a|m|e', 's|a|v|e', 'g|a|t|e', 'g|a|v|e'],
     // HILL step 5: the blend words, then a review row (short a, from the story); the wait gets shorter each row
-    speed: { rows: [['made', 'cake', 'came', 'shade'], ['plate', 'wave', 'gave', 'name'], ['sat', 'had', 'plan', 'sand']], waits: [3, 2, 1] },
+    speed: { rows: [['made', 'cape', 'tape', 'brave'], ['came', 'save', 'gate', 'gave'], ['cat', 'can', 'sat', 'lap']], waits: [3, 2, 1] },
     // literal questions: did they read the story? answer = the right choice; page = where the story says it
     questions: [
-      { q: 'What did Kate make?', choices: ['a cake', 'a kite', 'a hat'], answer: 'a cake', page: 1 },
-      { q: "What hit Kate's cake?", choices: ['a big wave', 'a dog', 'a rock'], answer: 'a big wave', page: 3 },
-      { q: 'What did Jake and Kate make with the sand?', choices: ['sand cakes', 'a sand castle', 'a big hole'], answer: 'sand cakes', page: 6 }
+      { q: 'What did Gabe make with tape?', choices: ['a red cape', 'a red hat', 'a kite'], answer: 'a red cape', page: 1 },
+      { q: 'Where was Pip stuck?', choices: ['up on the shed', 'in a box', 'on a bus'], answer: 'up on the shed', page: 2 },
+      { q: 'Who got the red cape at the end?', choices: ['Pip', 'Jade', 'Gabe'], answer: 'Pip', page: 6 }
     ],
-    // HILL step 7: new a_e words (snake, late, game) with the tricky words was and to
-    dictation: 'The snake was late to the game.'
+    // HILL step 7: new a_e words (lane, lake) with the tricky words to and was; none of them is in The Shape Game
+    dictation: 'The lane to the lake was shut.'
   }
 ];

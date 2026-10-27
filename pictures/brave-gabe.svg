@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 480" role="img" aria-label="A red cape stuck on a gate in front of a shed. A cat in a little red cape sits in the grass.">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe3ff"/><stop offset="1" stop-color="#eef8ff"/></linearGradient>
+    <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd16a"/><stop offset="1" stop-color="#5fae45"/></linearGradient>
+  </defs>
+  <rect width="840" height="480" fill="url(#sky)"/>
+  <!-- sun and a cloud -->
+  <circle cx="90" cy="80" r="40" fill="#ffd44d"/>
+  <g fill="#ffffff"><ellipse cx="640" cy="80" rx="70" ry="26"/><ellipse cx="600" cy="92" rx="48" ry="22"/><ellipse cx="690" cy="96" rx="52" ry="20"/></g>
+  <!-- the grass -->
+  <rect x="0" y="330" width="840" height="150" fill="url(#grass)"/>
+  <!-- the shed -->
+  <rect x="470" y="190" width="250" height="150" fill="#b5713d"/>
+  <polygon points="450,195 595,110 740,195" fill="#7a3f1d"/>
+  <rect x="560" y="245" width="70" height="95" fill="#8a5129"/>
+  <circle cx="618" cy="295" r="5" fill="#ffd44d"/>
+  <rect x="490" y="215" width="50" height="40" fill="#dff3ff" stroke="#7a3f1d" stroke-width="5"/>
+  <g stroke="#9b5f33" stroke-width="3"><line x1="470" y1="230" x2="560" y2="230"/><line x1="630" y1="230" x2="720" y2="230"/><line x1="470" y1="290" x2="560" y2="290"/><line x1="630" y1="290" x2="720" y2="290"/></g>
+  <!-- the gate: pickets and two rails -->
+  <g fill="#f7f1e3" stroke="#cbbd9e" stroke-width="3">
+    <rect x="60" y="250" width="380" height="16" rx="3"/><rect x="60" y="320" width="380" height="16" rx="3"/>
+    <path d="M70 360 v-130 l15 -18 l15 18 v130 z"/><path d="M125 360 v-130 l15 -18 l15 18 v130 z"/>
+    <path d="M180 360 v-130 l15 -18 l15 18 v130 z"/><path d="M235 360 v-130 l15 -18 l15 18 v130 z"/>
+    <path d="M290 360 v-130 l15 -18 l15 18 v130 z"/><path d="M345 360 v-130 l15 -18 l15 18 v130 z"/>
+    <path d="M400 360 v-130 l15 -18 l15 18 v130 z"/>
+  </g>
+  <!-- Gabe's red cape, caught on a picket -->
+  <path d="M232 214 C262 204 286 214 292 224 L318 330 C300 342 252 346 214 332 Z" fill="#e03131"/>
+  <path d="M232 214 C262 204 286 214 292 224" fill="none" stroke="#a51f1f" stroke-width="6" stroke-linecap="round"/>
+  <path d="M250 260 L262 300 M276 256 L292 312" stroke="#b72424" stroke-width="3" stroke-linecap="round"/>
+  <!-- strips of tape on the cape -->
+  <g fill="#f5e6a8" opacity="0.95"><rect x="236" y="300" width="34" height="12" rx="2" transform="rotate(-12 253 306)"/><rect x="270" y="236" width="30" height="11" rx="2" transform="rotate(18 285 241)"/></g>
+  <!-- Pip the cat, in a little red cape -->
+  <g transform="translate(560 360)">
+    <path d="M-10 6 C-60 10 -70 60 -40 70 L50 70 C72 60 66 12 20 6 Z" fill="#e03131"/>
+    <ellipse cx="6" cy="44" rx="46" ry="34" fill="#f2994a"/>
+    <path d="M44 60 C88 58 92 20 74 12" fill="none" stroke="#f2994a" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="6" cy="-4" r="30" fill="#f2994a"/>
+    <polygon points="-22,-18 -16,-46 -2,-26" fill="#f2994a"/><polygon points="14,-26 28,-46 34,-18" fill="#f2994a"/>
+    <polygon points="-18,-22 -15,-38 -6,-26" fill="#f7c9a0"/><polygon points="18,-26 27,-38 30,-22" fill="#f7c9a0"/>
+    <circle cx="-5" cy="-8" r="4.5" fill="#1f2a44"/><circle cx="17" cy="-8" r="4.5" fill="#1f2a44"/>
+    <path d="M2 2 l4 4 l4 -4 z" fill="#d6336c"/>
+    <path d="M6 6 q-6 8 -12 4 M6 6 q6 8 12 4" fill="none" stroke="#1f2a44" stroke-width="2" stroke-linecap="round"/>
+    <path d="M-14 14 C-6 24 18 24 26 14 L22 30 C10 36 -2 36 -10 30 Z" fill="#c92a2a"/>
+  </g>
+</svg>
