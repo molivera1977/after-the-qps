@@ -20,6 +20,10 @@
 // consonants after a long a (Marcos 10/26: "could not hear the consonant sound after the long A sound");
 // he recorded these. Any word on this list plays his recording wherever the lesson says the word alone.
 window.ATQ_WORD_RECORDINGS = ['cape', 'gabe', 'gate', 'gave'];
+// Words said alone that the voice is handed in another spelling. "a" alone comes out as the letter name
+// "ay"; in a sentence it is "uh" (Marcos 10/26 picked "uh": a help tap is a kid stuck mid-sentence).
+// The kid still sees the real word.
+window.ATQ_WORD_SAY = { a: 'uh' };
 
 window.ATQ_LESSONS = [
   {

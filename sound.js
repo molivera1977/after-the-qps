@@ -101,7 +101,7 @@ window.ATQSound = (function () {
   const recorded = (w) => (window.ATQ_WORD_RECORDINGS || []).includes(String(w).toLowerCase());
   const word = (w) => guarded(async () => {
     const rec = recorded(w) ? await load('words/' + String(w).toLowerCase(), true) : null;
-    if (rec) await play(rec); else await speak(w, 0.82);
+    if (rec) await play(rec); else await speak((window.ATQ_WORD_SAY || {})[String(w).toLowerCase()] || w, 0.82);
   });
   const letters = (s) => guarded(() => speak(s.toUpperCase().split('').join('-'), 0.82));   // capitals: the voice says letter names
   const text = (t) => guarded(() => speak(t, 0.82));
