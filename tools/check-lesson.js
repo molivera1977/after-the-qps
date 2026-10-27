@@ -26,6 +26,7 @@ vm.createContext(ctx);
 // node tools/check-lesson.js [lessons file] — the test suite hands it a copy with a planted defect
 vm.runInContext(fs.readFileSync(process.argv[2] || path.join(ROOT, 'lessons.js'), 'utf8'), ctx);
 const LESSONS = ctx.window.ATQ_LESSONS;
+const WORD_RECORDINGS = ctx.window.ATQ_WORD_RECORDINGS || [];
 
 // Irregular for this reader, even when the letters look regular (the quiet-e lookalikes first)
 const IRREGULAR = new Set(('have give live come some done gone none one once love dove glove move lose whose were there where ' +
@@ -165,6 +166,10 @@ for (const L of LESSONS) {
   if (!fs.existsSync(path.join(ROOT, L.story.picture))) fail(L, `picture ${L.story.picture} is missing`);
   ok(`recordings ${[...sounds].join(', ')} and the picture are in the folder`);
 }
+
+// Mr. O's whole-word recordings: every one listed is in sounds/words/
+console.log(`\nwords in Mr. O's voice: ${WORD_RECORDINGS.join(', ') || 'none'}`);
+WORD_RECORDINGS.forEach(w => { if (w !== w.toLowerCase() || !fs.existsSync(path.join(ROOT, 'sounds', 'words', w + '.m4a'))) { failed++; console.log(`  ❌ sounds/words/${w}.m4a is missing (or the name is not lowercase)`); } });
 
 console.log(failed ? `\n❌ ${failed} problem${failed > 1 ? 's' : ''}` : '\n✅ every lesson passes');
 process.exit(failed ? 1 : 0);

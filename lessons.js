@@ -16,6 +16,11 @@
      /a/        a SOUND — a sound tile, played with Mr. O's recording
      /a_e=ai/   a sound tile that shows a_e and plays his "ai" recording
    ===================================================================== */
+// Whole words in Mr. O's own voice (sounds/words/<word>.m4a). The computer voice swallows some final
+// consonants after a long a (Marcos 10/26: "could not hear the consonant sound after the long A sound");
+// he recorded these. Any word on this list plays his recording wherever the lesson says the word alone.
+window.ATQ_WORD_RECORDINGS = ['cape', 'gabe', 'gate', 'gave'];
+
 window.ATQ_LESSONS = [
   {
     id: 'a_e',

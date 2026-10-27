@@ -30,8 +30,9 @@ window.ATQSound = (function () {
     for (let c = 0; c < buf.numberOfChannels; c++) { const ch = buf.getChannelData(c); for (let i = 0; i < buf.length; i++) mix[i] += ch[i] / buf.numberOfChannels; }
     return mix;
   };
-  // One recording, its silence trimmed the hub's way (BlendCore.blend of one sound keeps its full length)
-  async function load(name) {
+  // One recording, its silence trimmed the hub's way (BlendCore.blend of one sound keeps its full length).
+  // whole = a whole word in his voice: played as he recorded it (already trimmed), like the hub's whole words.
+  async function load(name, whole = false) {
     if (name in cache) return cache[name];
     const c = audio();
     let out = null;
@@ -40,7 +41,7 @@ window.ATQSound = (function () {
         const res = await fetch(`sounds/${name}.m4a`);
         if (res.ok) {
           const buf = await c.decodeAudioData(await res.arrayBuffer());
-          const data = window.BlendCore ? BlendCore.blend([mono(buf)], c.sampleRate) : null;
+          const data = window.BlendCore && !whole ? BlendCore.blend([mono(buf)], c.sampleRate) : null;
           if (data && data.length) { out = c.createBuffer(1, data.length, c.sampleRate); out.getChannelData(0).set(data); out.__name = name; }
           else out = buf;
         }
@@ -96,7 +97,12 @@ window.ATQSound = (function () {
   // Each public call stops what is playing, then plays. Resolves when its sound is over (or cut off).
   async function guarded(fn) { stop(); audio(); const mine = ++run; await fn(); return mine === run; }
   const sound = (name) => guarded(async () => { const b = await load(name); if (b) await play(b); });
-  const word = (w) => guarded(() => speak(w, 0.82));
+  // A whole word: Mr. O's recording if he made one (lessons.js ATQ_WORD_RECORDINGS), else the computer voice
+  const recorded = (w) => (window.ATQ_WORD_RECORDINGS || []).includes(String(w).toLowerCase());
+  const word = (w) => guarded(async () => {
+    const rec = recorded(w) ? await load('words/' + String(w).toLowerCase(), true) : null;
+    if (rec) await play(rec); else await speak(w, 0.82);
+  });
   const letters = (s) => guarded(() => speak(s.toUpperCase().split('').join('-'), 0.82));   // capitals: the voice says letter names
   const text = (t) => guarded(() => speak(t, 0.82));
 
