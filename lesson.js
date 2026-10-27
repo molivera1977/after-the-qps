@@ -853,7 +853,7 @@ window.ATQLesson = (function () {
     if (run.saveKey) { try { localStorage.removeItem(run.saveKey); } catch (e) {} }
     const result = { right, total: L.questions.length, data: d };
     const area = screen(run.kind === 'reread' ? `🎉 You read ${L.story.title} again!` : `🎉 You finished ${L.name}!`);
-    const dir = direction(area, `${run.kind === 'reread' ? `You read ${L.story.title} 3 more times.` : `You finished the lesson ${L.name}.`} You got ${right} of ${L.questions.length} questions right.`);
+    const dir = direction(area, `${run.kind === 'reread' ? `You read ${L.story.title} 3 more times.` : `You finished the lesson ${/\b[a-z]$/i.test(L.name) ? `${L.name}, like ${L.example}` : L.name}.`} You got ${right} of ${L.questions.length} questions right.`);
     dir.row.classList.add('l-end');
     const work = el('div', 'l-work');
     area.append(work);

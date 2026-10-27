@@ -36,6 +36,10 @@ window.ATQApp = (function () {
     return row;
   }
 
+  // A name that ends in one letter ("Silent e with a") gets its example word after it: the voice reads "a." like an
+  // initial and runs into the next sentence (Marcos 10/26: "no stop at the period")
+  const nameLine = (l) => (/\b[a-z]$/i.test(l.name) ? `${l.name}, like ${l.example}` : l.name);
+
   function show(id) {
     VIEWS.forEach(v => { $(v).hidden = v !== id; });
     $('topBar').hidden = id === 'loginView';
@@ -85,8 +89,8 @@ window.ATQApp = (function () {
     sec.append(el('p', 'h-eyebrow', '📌 Your lesson from Mr. O'));
     const started = a.steps > 0 || ATQLesson.hasSaved(a.id);
     sayLine(sec, started
-      ? `Keep going with your lesson, ${lesson.name}. You will read the story ${lesson.story.title}.`
-      : `Your lesson from Mr. O is ${lesson.name}. You will read the story ${lesson.story.title}.`);
+      ? `Keep going with your lesson, ${nameLine(lesson)}. You will read the story ${lesson.story.title}.`
+      : `Your lesson from Mr. O is ${nameLine(lesson)}. You will read the story ${lesson.story.title}.`);
     sec.append(lessonCard(lesson));
     sec.append(button('l-btn h-go', started ? '▶️ Keep Going' : '▶️ Start My Lesson', 'Finish the whole lesson.', () => startAssigned(a)));
     const more = list.filter(x => !x.done).length - 1;
