@@ -43,6 +43,7 @@ window.ATQApp = (function () {
   function show(id) {
     VIEWS.forEach(v => { $(v).hidden = v !== id; });
     $('topBar').hidden = id === 'loginView';
+    document.body.classList.toggle('on-login', id === 'loginView');   // the bright front page (style.css)
     window.scrollTo(0, 0);
   }
 

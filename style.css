@@ -34,6 +34,18 @@ button { font-family: inherit; }
 .login-error { color: var(--red); font-weight: 600; min-height: 1.2em; margin: 0; font-size: 18px; }
 .teacher-access-btn { font-size: 12px; font-weight: 400; font-family: inherit; color: #767676; background: none; border: 0; padding: 2px 0; cursor: pointer; align-self: flex-end; margin-top: 4px; }
 .teacher-access-btn:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+/* The sign-in screen is the front page: the hub's colors behind it and QPS as the hub's tiles (Marcos 10/27:
+   "a little more excitement", picked A). Only while sign-in shows (app.js show() sets body.on-login); lessons stay calm.
+   White text measured ≥ 4.6:1 on every part of the gradient. */
+body.on-login { background: linear-gradient(135deg, #2f6fde 0%, #7b3fc4 50%, #d6336c 100%) fixed; min-height: 100vh; }
+body.on-login .login-hero h1 { color: #fff; font-size: clamp(36px, 9vw, 54px); display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 14px; text-shadow: 0 3px 0 rgba(0, 0, 0, .18); }
+body.on-login .login-hero .p-direction p { color: #fff; }
+body.on-login .login-box { border-color: transparent; box-shadow: 0 14px 40px rgba(20, 10, 60, .35); }
+.tile-word { display: inline-flex; gap: 8px; }
+.tile { display: inline-grid; place-items: center; width: 1.2em; height: 1.2em; border-radius: 14px; color: #fff; font-weight: 700; border: 3px solid #fff; text-shadow: none; }
+.tile.t1 { background: var(--blue); box-shadow: 0 5px 0 var(--blue-dark); transform: rotate(-5deg); }
+.tile.t2 { background: var(--orange); box-shadow: 0 5px 0 var(--orange-dark); transform: translateY(-4px); }
+.tile.t3 { background: #d6336c; box-shadow: 0 5px 0 #a3204f; transform: rotate(5deg); }
 
 /* a line read aloud: 🔊 then the words */
 .p-direction, .l-direction { display: flex; align-items: center; gap: 12px; margin: 6px 0 12px; text-align: left; }
